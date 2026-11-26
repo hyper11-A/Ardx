@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10131d">
+  <title>Ardx Photo Editor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Ardx Photo Editor home"><span class="brand-mark">A</span><span>ardx<span class="brand-dot">.</span></span></a>
+    <div class="top-note"><span class="live-dot"></span> EDITOR ONLINE <span class="top-divider">/</span> PRIVATE BY DESIGN</div>
+    <div class="top-actions">
+      <button class="btn btn-quiet" id="resetBtn" title="Reset semua perubahan">Reset</button>
+      <button class="btn btn-primary" id="downloadTop" disabled><span>Unduh foto</span><span class="download-icon">↓</span></button>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <section class="intro">
+      <div class="eyebrow"><span class="eyebrow-line"></span> YOUR CREATIVE SPACE</div>
+      <h1>Make every image<br><span>feel extraordinary.</span></h1>
+      <p>Ruang sederhana untuk mengubah foto biasa menjadi sesuatu yang istimewa.</p>
+    </section>
+
+    <section class="workspace">
+      <aside class="sidebar panel">
+        <div class="side-heading"><div><span class="section-kicker">WORKSPACE</span><h2>Studio tools</h2></div><span class="tool-count">05</span></div>
+        <button class="tool-tab active" data-tab="adjust"><span class="tool-icon">◒</span><span><b>Penyesuaian</b><small>Cahaya & warna</small></span><span class="tab-arrow">›</span></button>
+        <button class="tool-tab" data-tab="filters"><span class="tool-icon">✧</span><span><b>Filter</b><small>Nuansa & karakter</small></span><span class="tab-arrow">›</span></button>
+        <button class="tool-tab" data-tab="transform"><span class="tool-icon">⤢</span><span><b>Transformasi</b><small>Putar & cermin</small></span><span class="tab-arrow">›</span></button>
+        <button class="tool-tab" data-tab="text"><span class="tool-icon">T</span><span><b>Teks foto</b><small>Tambahkan tulisan</small></span><span class="tab-arrow">›</span></button>
+        <button class="tool-tab" data-tab="background"><span class="tool-icon">◇</span><span><b>Hapus latar</b><small>Jadikan transparan</small></span><span class="tab-arrow">›</span></button>
+        <div class="sidebar-bottom">
+          <div class="privacy-card"><span class="privacy-icon">⌁</span><div><b>Privasi terjaga</b><p>Foto diproses langsung di browser perangkatmu.</p></div></div>
+          <div class="side-footer">VELORA STUDIO <span>© 2026</span></div>
+        </div>
+      </aside>
+
+      <section class="editor-column">
+        <div class="canvas-toolbar">
+          <div class="canvas-label"><span class="status-dot"></span><span id="fileLabel">CANVAS / BELUM ADA FOTO</span></div>
+          <div class="canvas-actions"><button class="icon-btn" id="zoomOut" title="Perkecil">−</button><span id="zoomLabel">100%</span><button class="icon-btn" id="zoomIn" title="Perbesar">+</button><span class="toolbar-sep"></span><button class="icon-btn" id="fitBtn" title="Sesuaikan tampilan">⤢</button></div>
+        </div>
+        <div class="canvas-stage" id="canvasStage">
+          <div class="empty-state" id="emptyState">
+            <div class="upload-art"><div class="art-ring ring-a"></div><div class="art-ring ring-b"></div><div class="art-image"><span>✧</span></div><div class="art-spark spark-a">✦</div><div class="art-spark spark-b">✧</div></div>
+            <h2>Mulai dengan sebuah foto</h2>
+            <p>Unggah gambar dari perangkatmu untuk mulai berkreasi.</p>
+            <label class="btn btn-primary upload-button" for="fileInput">Pilih foto <span>↑</span></label>
+            <span class="file-hint">JPG, PNG, WEBP · Maks. 20 MB</span>
+          </div>
+          <canvas id="photoCanvas" aria-label="Pratinjau foto yang sedang diedit"></canvas>
+          <div class="canvas-watermark" id="canvasWatermark">VELORA <span>STUDIO</span></div>
+        </div>
+        <div class="canvas-footer"><span id="imageInfo">Belum ada gambar</span><span>PREVIEW <b>LIVE</b></span></div>
+      </section>
+
+      <aside class="controls panel">
+        <div class="control-head"><div><span class="section-kicker">EDIT PANEL</span><h2 id="panelTitle">Penyesuaian</h2></div><button class="mini-reset" id="resetPanel">Atur ulang</button></div>
+
+        <div class="tab-panel active" id="panel-adjust">
+          <p class="panel-desc">Atur keseimbangan cahaya dan warna sesuai seleramu.</p>
+          <div class="slider-control"><div class="slider-label"><label for="brightness">Kecerahan</label><output id="brightnessVal">100%</output></div><input id="brightness" type="range" min="0" max="200" value="100"></div>
+          <div class="slider-control"><div class="slider-label"><label for="contrast">Kontras</label><output id="contrastVal">100%</output></div><input id="contrast" type="range" min="0" max="200" value="100"></div>
+          <div class="slider-control"><div class="slider-label"><label for="saturation">Saturasi</label><output id="saturationVal">100%</output></div><input id="saturation" type="range" min="0" max="200" value="100"></div>
+          <div class="slider-control"><div class="slider-label"><label for="warmth">Temperatur</label><output id="warmthVal">0</output></div><input id="warmth" type="range" min="-50" max="50" value="0"></div>
+          <div class="slider-control"><div class="slider-label"><label for="blur">Blur</label><output id="blurVal">0 px</output></div><input id="blur" type="range" min="0" max="10" value="0" step=".5"></div>
+          <div class="control-tip"><span>✦</span> Tips: sedikit kontras ekstra dapat membuat detail foto lebih menonjol.</div>
+        </div>
+
+        <div class="tab-panel" id="panel-filters">
+          <p class="panel-desc">Pilih karakter visual untuk memberi suasana baru pada foto.</p>
+          <div class="filter-grid">
+            <button class="filter-card selected" data-filter="normal"><span class="filter-swatch swatch-original">Aa</span><b>Original</b></button>
+            <button class="filter-card" data-filter="vintage"><span class="filter-swatch swatch-vintage">Aa</span><b>Vintage</b></button>
+            <button class="filter-card" data-filter="mono"><span class="filter-swatch swatch-mono">Aa</span><b>Monochrome</b></button>
+            <button class="filter-card" data-filter="warm"><span class="filter-swatch swatch-warm">Aa</span><b>Golden</b></button>
+            <button class="filter-card" data-filter="cool"><span class="filter-swatch swatch-cool">Aa</span><b>Cool</b></button>
+            <button class="filter-card" data-filter="fade"><span class="filter-swatch swatch-fade">Aa</span><b>Soft fade</b></button>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-transform">
+          <p class="panel-desc">Sesuaikan orientasi dan arah foto dengan cepat.</p>
+          <div class="transform-grid">
+            <button class="transform-btn" id="rotateLeft"><span>↶</span>Putar kiri</button>
+            <button class="transform-btn" id="rotateRight"><span>↷</span>Putar kanan</button>
+            <button class="transform-btn" id="flipH"><span>⇋</span>Cermin horizontal</button>
+            <button class="transform-btn" id="flipV"><span>⇅</span>Cermin vertikal</button>
+          </div>
+          <div class="control-tip"><span>✦</span> Transformasi diterapkan pada hasil unduhan.</div>
+        </div>
+
+        <div class="tab-panel" id="panel-text">
+          <p class="panel-desc">Tambahkan pesan atau watermark langsung di atas foto.</p>
+          <label class="field-label" for="overlayText">Tulisan</label>
+          <input class="text-input" id="overlayText" type="text" maxlength="60" placeholder="Tulis sesuatu yang indah...">
+          <label class="field-label" for="textColor">Warna teks</label>
+          <div class="color-row"><input id="textColor" type="color" value="#ffffff"><span>Warna tulisan</span></div>
+          <label class="field-label" for="textSize">Ukuran tulisan <output id="textSizeVal">36 px</output></label>
+          <input id="textSize" type="range" min="12" max="100" value="36">
+          <label class="field-label" for="textPosition">Posisi tulisan</label>
+          <select id="textPosition" class="select-input"><option value="bottom">Bawah tengah</option><option value="center">Tengah</option><option value="top">Atas tengah</option></select>
+          <button class="btn btn-outline full-width" id="clearText">Hapus tulisan</button>
+        </div>
+
+        <div class="tab-panel" id="panel-background">
+          <p class="panel-desc">Hapus latar berwarna seragam secara otomatis. Proses dilakukan langsung di perangkatmu.</p>
+          <div class="remove-preview">
+            <span class="remove-preview-icon">◇</span>
+            <div><b>Background Remover</b><small id="backgroundStatus">Unggah foto untuk memulai</small></div>
+          </div>
+          <button class="btn btn-primary full-width" id="removeBackground">Hapus background otomatis <span>◇</span></button>
+          <button class="btn btn-outline full-width" id="restoreBackground" disabled>Pulihkan latar</button>
+          <div class="control-tip"><span>✦</span> Hasil terbaik pada latar polos dan kontras jelas.</div>
+        </div>
+
+        <div class="panel-bottom">
+          <div class="export-note"><span>↗</span><div><b>Siap dibagikan?</b><small>Unduh hasil edit dalam format PNG.</small></div></div>
+          <button class="btn btn-primary full-width" id="downloadBtn" disabled>Unduh hasil foto <span>↓</span></button>
+        </div>
+      </aside>
+    </section>
+    <footer class="page-footer"><span>Made for your creative moments.</span><span>VELORA STUDIO <i>·</i> IMAGE EDITOR</span></footer>
+  </main>
+  <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp" hidden>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
